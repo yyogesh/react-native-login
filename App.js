@@ -1,15 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Login } from './src/screens/LoginScreen';
-import { Registration } from './src/screens/RegistrationScreen';
+import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import AuthStackNavigator from './src/navigators/AuthStackNavigator';
+
+const RootStack = createStackNavigator();
 
 export default function App() {
   return (
-    <View >
-      {/* <Login /> */}
-      <Registration />
-    </View>
+    <NavigationContainer>
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
+        <RootStack.Screen name={"RootStack"} component={AuthStackNavigator} />
+      </RootStack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -21,3 +24,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+// <View >
+//       {/* <Login /> */}
+//       <Registration />
+//     </View>

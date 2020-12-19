@@ -4,12 +4,14 @@ import { Error } from '../components/Error';
 import { FillButton } from '../components/FillButton';
 import { Heading } from '../components/Heading';
 import { Input } from '../components/Input';
+import { NativeIcon } from '../components/NativeIcon';
 import { TextButton } from '../components/TextButton';
 
-export function Registration() {
+export function RegistrationScreen() {
     return (
         <View style={styles.container}>
             <Heading style={styles.heading}>Registration</Heading>
+            <NativeIcon iconLib={"MaterialIcons"} iconName={"login"} />
             <Error error={"Error message"} />
             <Input placeholder={'Email'} style={styles.input} keyboardType={'email-address'} />
             <Input placeholder={'Password'} style={styles.input} secureTextEntry />

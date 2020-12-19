@@ -6,14 +6,16 @@ import { Heading } from '../components/Heading';
 import { Input } from '../components/Input';
 import { TextButton } from '../components/TextButton';
 
-export function Login() {
+export function LoginScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <Heading style={styles.heading}>LOGIN</Heading>
             <Error error={"Error message"} />
             <Input placeholder={'Email'} style={styles.input} keyboardType={'email-address'} />
             <Input placeholder={'Password'} style={styles.input} secureTextEntry />
-            <FillButton title={"Login"} style={styles.loginButton} onPress={() => { }} />
+            <FillButton title={"Login"} style={styles.loginButton} onPress={() => {
+                navigation.navigate('Registration')
+            }} />
             <TextButton title={'Have you an account? Create on'} onPress={() => { }} />
         </View>
     )
