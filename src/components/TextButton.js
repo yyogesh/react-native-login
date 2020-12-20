@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
+import { useTheme } from '@react-navigation/native';
 
 export function TextButton({ title, style, onPress, ...props }) {
+    const { colors } = useTheme();
     return (
         <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
-            <Text style={styles.text}>{title}</Text>
+            <Text style={[styles.text, { color: colors.primary }]}>{title}</Text>
         </TouchableOpacity>
     )
 }
@@ -18,7 +20,6 @@ const styles = StyleSheet.create({
         borderRadius: 8
     },
     text: {
-        color: 'purple',
         fontWeight: '500',
         fontSize: 14
     }

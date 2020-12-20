@@ -5,18 +5,25 @@ import { FillButton } from '../components/FillButton';
 import { Heading } from '../components/Heading';
 import { Input } from '../components/Input';
 import { TextButton } from '../components/TextButton';
+import { useTheme } from '@react-navigation/native';
+import { AuthContext } from '../contexts/AuthContext';
 
 export function LoginScreen({ navigation }) {
+    const { colors } = useTheme();
+    const { login } = React.useContext(AuthContext);
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
     return (
         <View style={styles.container}>
             <Heading style={styles.heading}>LOGIN</Heading>
             <Error error={"Error message"} />
-            <Input placeholder={'Email'} style={styles.input} keyboardType={'email-address'} />
-            <Input placeholder={'Password'} style={styles.input} secureTextEntry />
+            <Input placeholder={'Email'} style={styles.input} keyboardType={'email-address'} value={email} onChangeText={setEmail} />
+            <Input placeholder={'Password'} style={styles.input} secureTextEntry
+                value={password} onChangeText={setPassword} />
             <FillButton title={"Login"} style={styles.loginButton} onPress={() => {
-                navigation.navigate('Registration')
+                login(email, password)
             }} />
-            <TextButton title={'Have you an account? Create on'} onPress={() => { }} />
+            <TextButton title={'Have you an account? Create on'} onPress={() => { navigation.navigate('Registration') }} />
         </View>
     )
 }

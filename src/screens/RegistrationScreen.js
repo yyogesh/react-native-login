@@ -6,16 +6,19 @@ import { Heading } from '../components/Heading';
 import { Input } from '../components/Input';
 import { NativeIcon } from '../components/NativeIcon';
 import { TextButton } from '../components/TextButton';
+import { useTheme } from '@react-navigation/native';
 
-export function RegistrationScreen() {
+export function RegistrationScreen({ navigation }) {
+    const { colors } = useTheme();
     return (
         <View style={styles.container}>
             <Heading style={styles.heading}>Registration</Heading>
-            <NativeIcon iconLib={"MaterialIcons"} iconName={"login"} />
+            <NativeIcon iconLib={"MaterialIcons"} iconColor={colors.primary} iconName={"login"}
+                onPress={() => { navigation.navigate('Login') }} iconStyle={styles.closeButton} />
             <Error error={"Error message"} />
             <Input placeholder={'Email'} style={styles.input} keyboardType={'email-address'} />
             <Input placeholder={'Password'} style={styles.input} secureTextEntry />
-            <FillButton title={"Login"} style={styles.loginButton} onPress={() => { }} />
+            <FillButton title={"Registration"} style={styles.loginButton} onPress={() => { }} />
             <TextButton title={'Have you an account? Create on'} onPress={() => { }} />
         </View>
     )
@@ -36,6 +39,11 @@ const styles = StyleSheet.create({
     },
     loginButton: {
         marginVertical: 20
+    },
+    closeButton: {
+        position: 'absolute',
+        top: 60,
+        right: 20
     }
 
 })

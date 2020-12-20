@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
+import { useTheme } from '@react-navigation/native';
 
 export function FillButton({ title, style, onPress, ...props }) {
+    const { colors } = useTheme();
     return (
-        <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
+        <TouchableOpacity onPress={onPress} style={[styles.container, style, { backgroundColor: colors.primary }]}>
             <Text style={styles.text}>{title}</Text>
         </TouchableOpacity>
     )
@@ -11,7 +13,6 @@ export function FillButton({ title, style, onPress, ...props }) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'purple',
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',

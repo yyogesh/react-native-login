@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from '../styles/icons';
 
 
-export function NativeIcon({ iconName, iconColor, iconLib, iconSize }) {
+export function NativeIcon({ iconName, iconColor, iconLib, iconSize, onPress, iconStyle }) {
     const size = iconSize || 20;
     const iconClr = iconColor || '#000000'
     return (
-        <View>
+        <TouchableOpacity onPress={() => onPress && onPress()} style={iconStyle}>
             {iconLib && iconLib === "MaterialIcons" && (
                 <Icon.MaterialIcons
                     name={iconName}
@@ -22,6 +22,6 @@ export function NativeIcon({ iconName, iconColor, iconLib, iconSize }) {
                     size={size}
                 />
             )}
-        </View>
+        </TouchableOpacity>
     )
 }
