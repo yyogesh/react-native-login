@@ -13,6 +13,13 @@ export function LoginScreen({ navigation }) {
     const { login } = React.useContext(AuthContext);
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const appLogin = async () => {
+        const data = await login(email, password);
+        console.log(data);
+        // if (data) {
+        //     navigation.navigate('MainStack');
+        // }
+    }
     return (
         <View style={styles.container}>
             <Heading style={styles.heading}>LOGIN</Heading>
@@ -20,9 +27,7 @@ export function LoginScreen({ navigation }) {
             <Input placeholder={'Email'} style={styles.input} keyboardType={'email-address'} value={email} onChangeText={setEmail} />
             <Input placeholder={'Password'} style={styles.input} secureTextEntry
                 value={password} onChangeText={setPassword} />
-            <FillButton title={"Login"} style={styles.loginButton} onPress={() => {
-                login(email, password)
-            }} />
+            <FillButton title={"Login"} style={styles.loginButton} onPress={appLogin} />
             <TextButton title={'Have you an account? Create on'} onPress={() => { navigation.navigate('Registration') }} />
         </View>
     )
