@@ -2,10 +2,11 @@ import React from 'react';
 import firebase from 'firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAction } from '../actions/createAction';
+import { sleep } from '../actions/sleep';
 
 const intialState = {
     user: undefined,
-    loading: false
+    loading: true
 }
 
 const reducer = (state, action) => {
@@ -25,6 +26,8 @@ const reducer = (state, action) => {
                 ...state,
                 loading: action.payload
             }
+        default:
+            return state
     }
 }
 
@@ -97,6 +100,12 @@ export function useAuth() {
             })
         }
     }));
+
+    React.useEffect(() => {
+        sleep(2000).then(() => {
+            dispatch(createAction('SET_LOADING', false))
+        })
+    }, [])
 
     return { auth, state }
 }

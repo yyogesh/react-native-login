@@ -11,6 +11,7 @@ import { HomeScreen } from './src/screens/ProductScreen';
 import MainStackNavigator from './src/navigators/MainStackNavigator';
 import { useAuth } from './src/hooks/useAuth';
 import { UserContext } from './src/contexts/UserContext';
+import { SplashScreen } from './src/screens/SplashScreen';
 firebase.initializeApp(firebaseConfig);
 
 const RootStack = createStackNavigator();
@@ -18,21 +19,28 @@ const RootStack = createStackNavigator();
 export default function App() {
   const { auth, state } = useAuth();
   console.log(state);
+
+  const renderScreens = () => {
+    if (state.loading) {
+      return <RootStack.Screen name={"Splash"} component={SplashScreen} />
+    }
+    return (state && state.user ? <RootStack.Screen name={"MainStack"} >
+      {
+        () => (
+          <UserContext.Provider value={state.user}>
+            <MainStackNavigator />
+          </UserContext.Provider>
+        )
+      }
+    </RootStack.Screen> :
+      <RootStack.Screen name={"RootStack"} component={AuthStackNavigator} />)
+  }
   return (
     <AuthContext.Provider value={auth}>
       <NavigationContainer theme={lightTheme}>
         <RootStack.Navigator screenOptions={{ headerShown: false }}>
           {
-            state && state.user ? <RootStack.Screen name={"MainStack"} >
-              {
-                () => (
-                  <UserContext.Provider value={state.user}>
-                    <MainStackNavigator />
-                  </UserContext.Provider>
-                )
-              }
-            </RootStack.Screen> :
-              <RootStack.Screen name={"RootStack"} component={AuthStackNavigator} />
+            renderScreens()
           }
         </RootStack.Navigator>
       </NavigationContainer>
