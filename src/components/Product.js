@@ -20,11 +20,27 @@ const styles = StyleSheet.create({
         marginVertical: 20
     },
     image: {
-        height: 260,
+        height: 120,
+        width: 200,
         borderTopLeftRadius: 16,
-        borderBottomRightRadius: 16
+        borderBottomRightRadius: 16,
+        marginVertical: 10,
     },
     infoContainer: {
         padding: 16
+    },
+    name: {
+        fontSize: 22,
+        fontWeight: 'bold'
+    },
+    price: {
+        fontSize: 16,
+        fontWeight: '600',
+        marginBottom: 8
+    },
+    description: {
+        fontSize: 16,
+        fontWeight: '400',
+        color: '#787878'
     }
 })

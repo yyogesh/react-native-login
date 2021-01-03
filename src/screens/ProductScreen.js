@@ -10,7 +10,7 @@ export function ProductScreen({ navigation }) {
     const { colors } = useTheme();
     const { logout } = React.useContext(AuthContext);
     const [products, setProducts] = React.useState([]);
-
+    console.log('navigation', navigation)
     React.useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => {

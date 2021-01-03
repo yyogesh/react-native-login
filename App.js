@@ -12,12 +12,20 @@ import MainStackNavigator from './src/navigators/MainStackNavigator';
 import { useAuth } from './src/hooks/useAuth';
 import { UserContext } from './src/contexts/UserContext';
 import { SplashScreen } from './src/screens/SplashScreen';
+import { ThemeContext } from './src/contexts/ThemeContext';
+import { darkTheme } from './src/Themes/dark';
 firebase.initializeApp(firebaseConfig);
 
 const RootStack = createStackNavigator();
 
 export default function App() {
   const { auth, state } = useAuth();
+  const [isDarkMode, setIsDarkMode] = React.useState(false);
+
+  const switchTheme = React.useCallback(() => {
+    setIsDarkMode(!isDarkMode);
+  }, [isDarkMode]);
+
   console.log(state);
 
   const renderScreens = () => {
@@ -36,15 +44,17 @@ export default function App() {
       <RootStack.Screen name={"RootStack"} component={AuthStackNavigator} />)
   }
   return (
-    <AuthContext.Provider value={auth}>
-      <NavigationContainer theme={lightTheme}>
-        <RootStack.Navigator screenOptions={{ headerShown: false }}>
-          {
-            renderScreens()
-          }
-        </RootStack.Navigator>
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <ThemeContext.Provider value={switchTheme}>
+      <AuthContext.Provider value={auth}>
+        <NavigationContainer theme={isDarkMode ? darkTheme : lightTheme}>
+          <RootStack.Navigator screenOptions={{ headerShown: false }}>
+            {
+              renderScreens()
+            }
+          </RootStack.Navigator>
+        </NavigationContainer>
+      </AuthContext.Provider>
+    </ThemeContext.Provider>
   );
 }
 

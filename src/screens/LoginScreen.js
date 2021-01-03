@@ -7,14 +7,17 @@ import { Input } from '../components/Input';
 import { TextButton } from '../components/TextButton';
 import { useTheme } from '@react-navigation/native';
 import { AuthContext } from '../contexts/AuthContext';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 export function LoginScreen({ navigation }) {
     const { colors } = useTheme();
+    const switchTheme = React.useContext(ThemeContext);
     const { login } = React.useContext(AuthContext);
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const appLogin = async () => {
         const data = await login(email, password);
+        switchTheme();
         console.log(data);
         // if (data) {
         //     navigation.navigate('MainStack');
